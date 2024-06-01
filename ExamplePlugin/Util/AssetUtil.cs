@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace ExamplePlugin.Util
+namespace PrestigeItems.Util
 {
     public static class AssetUtil
     {
@@ -12,7 +12,7 @@ namespace ExamplePlugin.Util
         {
             get
             {
-                return Path.Combine(Path.GetDirectoryName(ExamplePlugin.SavedInfo.Location), bundleName);
+                return Path.Combine(Path.GetDirectoryName(PrestigeItems.SavedInfo.Location), bundleName);
             }
         }
 

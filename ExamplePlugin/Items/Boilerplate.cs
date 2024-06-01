@@ -1,72 +1,20 @@
-using BepInEx;
-using ExamplePlugin.Items;
-using R2API;
+﻿using R2API;
 using RoR2;
+using System.Collections.Generic;
+using System;
 using UnityEngine;
+using PrestigeItems.Util;
 using UnityEngine.AddressableAssets;
-using System.Reflection;
-using TMPro;
-using ExamplePlugin.Util;
 
-namespace ExamplePlugin
+namespace PrestigeItems.Items
 {
-    // This is an example plugin that can be put in
-    // BepInEx/plugins/ExamplePlugin/ExamplePlugin.dll to test out.
-    // It's a small plugin that adds a relatively simple item to the game,
-    // and gives you that item whenever you press F2.
-
-    // This attribute specifies that we have a dependency on a given BepInEx Plugin,
-    // We need the R2API ItemAPI dependency because we are using for adding our item to the game.
-    // You don't need this if you're not using R2API in your plugin,
-    // it's just to tell BepInEx to initialize R2API before this plugin so it's safe to use R2API.
-    [BepInDependency(ItemAPI.PluginGUID)]
-
-    // This one is because we use a .language file for language tokens
-    // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
-    [BepInDependency(LanguageAPI.PluginGUID)]
-
-    // This attribute is required, and lists metadata for your plugin.
-    [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-
-    // This is the main declaration of our plugin class.
-    // BepInEx searches for all classes inheriting from BaseUnityPlugin to initialize on startup.
-    // BaseUnityPlugin itself inherits from MonoBehaviour,
-    // so you can use this as a reference for what you can declare and use in your plugin class
-    // More information in the Unity Docs: https://docs.unity3d.com/ScriptReference/MonoBehaviour.html
-    public class ExamplePlugin : BaseUnityPlugin
+    internal class Boilerplate
     {
-        // The Plugin GUID should be a unique ID for this plugin,
-        // which is human readable (as it is used in places like the config).
-        // If we see this PluginGUID as it is on thunderstore,
-        // we will deprecate this mod.
-        // Change the PluginAuthor and the PluginName !
-        public const string PluginGUID = PluginAuthor + "." + PluginName;
-        public const string PluginAuthor = "AuthorName";
-        public const string PluginName = "ExamplePlugin";
-        public const string PluginVersion = "1.0.0";
-
         // We need our item definition to persist through our functions, and therefore make it a class field.
         private static ItemDef myItemDef;
 
-        public static PluginInfo SavedInfo { get; private set;}
-
-        // The Awake() method is run at the very start when the game is initialized.
-        public void Awake()
+        internal static void Init()
         {
-            SavedInfo = Info;
-
-            // Init our logging class so that we can properly log for debugging
-            Log.Init(Logger);
-            AssetUtil.Init();
-
-            //var bundlePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.Info.Location), "myassets");
-            //MainAssets = AssetBundle.LoadFromFile(bundlePath);
-
-            Log.Debug($"Asset Bundle loaded from stream. (allegedly)");
-
-            // Initialize item classes
-            DevCube.Init();
-
             // First let's define our item
             myItemDef = ScriptableObject.CreateInstance<ItemDef>();
 
@@ -115,7 +63,7 @@ namespace ExamplePlugin
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
         }
 
-        private void GlobalEventManager_onCharacterDeathGlobal(DamageReport report)
+        private static void GlobalEventManager_onCharacterDeathGlobal(DamageReport report)
         {
             // If a character was killed by the world, we shouldn't do anything.
             if (!report.attacker || !report.attackerBody)
@@ -141,20 +89,22 @@ namespace ExamplePlugin
             }
         }
 
-        // The Update() method is run on every frame of the game.
-        private void Update()
+        // String definitions / key lookup
+        private static void AddTokens()
         {
-            // This if statement checks if the player has currently pressed F2.
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                // Get the player body to use a position:
-                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+            myItemDef.name = "EXAMPLE_CLOAKONKILL_NAME";
+            myItemDef.nameToken = "EXAMPLE_CLOAKONKILL_NAME";
+            myItemDef.pickupToken = "EXAMPLE_CLOAKONKILL_PICKUP";
+            myItemDef.descriptionToken = "EXAMPLE_CLOAKONKILL_DESC";
+            myItemDef.loreToken = "EXAMPLE_CLOAKONKILL_LORE";
 
-                // And then drop our defined item in front of the player.
+            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_NAME", "Boilerplate");
+            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_NAME", "Boilerplate");
+            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_PICKUP", "Great chance to cloak yourself upon killing an enemy.");
+            LanguageAPI.Add("DEVCUBE_DESCRIPTION", "<style=cHumanObjective>On kill</style>, <style=cIsUtility>cloaks</style> the user for <style=cIsUtility>4</style><style=cStack>(+1 per stack)</style> seconds.");
 
-                Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(DevCube.itemDef.itemIndex), transform.position, transform.forward * 20f);
-            }
+            string lore = "Someone should write lore for this because I'm all out of ideas. I didn't even make this, it came with the tutorial!";
+            LanguageAPI.Add("DEVCUBE_LORE", lore);
         }
     }
 }

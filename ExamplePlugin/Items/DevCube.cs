@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using ExamplePlugin.Util;
+using PrestigeItems.Util;
 
-namespace ExamplePlugin.Items
+namespace PrestigeItems.Items
 {
     internal class DevCube
     {
