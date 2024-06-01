@@ -1,8 +1,12 @@
 using BepInEx;
+using ExamplePlugin.Items;
 using R2API;
 using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System.Reflection;
+using TMPro;
+using ExamplePlugin.Util;
 
 namespace ExamplePlugin
 {
@@ -44,11 +48,24 @@ namespace ExamplePlugin
         // We need our item definition to persist through our functions, and therefore make it a class field.
         private static ItemDef myItemDef;
 
+        public static PluginInfo SavedInfo { get; private set;}
+
         // The Awake() method is run at the very start when the game is initialized.
         public void Awake()
         {
+            SavedInfo = Info;
+
             // Init our logging class so that we can properly log for debugging
             Log.Init(Logger);
+            AssetUtil.Init();
+
+            //var bundlePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.Info.Location), "myassets");
+            //MainAssets = AssetBundle.LoadFromFile(bundlePath);
+
+            Log.Debug($"Asset Bundle loaded from stream. (allegedly)");
+
+            // Initialize item classes
+            DevCube.Init();
 
             // First let's define our item
             myItemDef = ScriptableObject.CreateInstance<ItemDef>();
@@ -115,7 +132,7 @@ namespace ExamplePlugin
                 var garbCount = attackerCharacterBody.inventory.GetItemCount(myItemDef.itemIndex);
                 if (garbCount > 0 &&
                     // Roll for our 50% chance.
-                    Util.CheckRoll(50, attackerCharacterBody.master))
+                    RoR2.Util.CheckRoll(50, attackerCharacterBody.master))
                 {
                     // Since we passed all checks, we now give our attacker the cloaked buff.
                     // Note how we are scaling the buff duration depending on the number of the custom item in our inventory.
@@ -136,7 +153,7 @@ namespace ExamplePlugin
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(myItemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(DevCube.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }
