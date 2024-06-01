@@ -98,12 +98,11 @@ namespace PrestigeItems.Items
             myItemDef.descriptionToken = "EXAMPLE_CLOAKONKILL_DESC";
             myItemDef.loreToken = "EXAMPLE_CLOAKONKILL_LORE";
 
-            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_NAME", "Boilerplate");
-            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_NAME", "Boilerplate");
-            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_PICKUP", "Great chance to cloak yourself upon killing an enemy.");
-            LanguageAPI.Add("DEVCUBE_DESCRIPTION", "<style=cHumanObjective>On kill</style>, <style=cIsUtility>cloaks</style> the user for <style=cIsUtility>4</style><style=cStack>(+1 per stack)</style> seconds.");
+            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_NAME", "Cuthroat's Garb");
+            LanguageAPI.Add("EXAMPLE_CLOAKONKILL_PICKUP", "chance to cloak on kill.");
+            LanguageAPI.Add("DEVCUBE_DESCRIPTION", "Whenever you <style=cIsDamage>kill an enemy</style>, you have a <style=cIsUtility>50%</style> chance to cloak for <style=cIsUtility>4s</style> <style=cStack>(+1s per stack)</style>.");
 
-            string lore = "Someone should write lore for this because I'm all out of ideas. I didn't even make this, it came with the tutorial!";
+            string lore = "Those who visit in the night are either praying for a favour, or preying on a neighbour.";
             LanguageAPI.Add("DEVCUBE_LORE", lore);
         }
     }
