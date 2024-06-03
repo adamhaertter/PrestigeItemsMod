@@ -42,7 +42,7 @@ namespace PrestigeItems.Items
             {
                 Log.Debug($"Loading DevCube sprite...");
                 //itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
-                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("PrestigeBleed.png");
+                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("PrestigeKeyTrans.png");
                 Log.Debug($"DevCube sprite loaded!");
             }
             catch (Exception e)
@@ -54,7 +54,7 @@ namespace PrestigeItems.Items
             Log.Debug($"Loading DevCube model...");
                 //itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
 
-                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("PrestigeBleedLessShiny.prefab");
+                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("PrestigeKeyTiltedTrans.prefab");
                 Log.Debug($"DevCube model loaded!");
             }
             catch (Exception e)
