@@ -43,7 +43,7 @@ namespace PrestigeItems
 
             // Initialize item classes
             DevCube.Init();
-            //Boilerplate.Init(); // Disabled for now
+            Boilerplate.Init(); // Disabled for now
         }
 
         // The Update() method is run on every frame of the game.
@@ -57,8 +57,19 @@ namespace PrestigeItems
 
                 // And then drop our defined item in front of the player.
 
-                Log.Info($"Player pressed F2. Spawning our custom item at coordinates {transform.position}");
+                Log.Info($"Player pressed F2. Spawning our custom item 1 at coordinates {transform.position}");
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(DevCube.itemDef.itemIndex), transform.position, transform.forward * 20f);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                // Get the player body to use a position:
+                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+
+                // And then drop our defined item in front of the player.
+
+                Log.Info($"Player pressed F2. Spawning our custom item 2 at coordinates {transform.position}");
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(Boilerplate.myItemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }

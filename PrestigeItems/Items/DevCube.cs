@@ -36,10 +36,13 @@ namespace PrestigeItems.Items
             itemDef.loreToken = "DEVCUBE_LORE";
 
             itemDef.tier = ItemTier.Tier1; // Common
+
+            // TODO Delete improper asset access
             try
             {
                 Log.Debug($"Loading DevCube sprite...");
-                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
+                //itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
+                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("PrestigeBleed.png");
                 Log.Debug($"DevCube sprite loaded!");
             }
             catch (Exception e)
@@ -49,8 +52,10 @@ namespace PrestigeItems.Items
 
             try { 
             Log.Debug($"Loading DevCube model...");
-                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
-            Log.Debug($"DevCube model loaded!");
+                //itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
+
+                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("PrestigeBleedLessShiny.prefab");
+                Log.Debug($"DevCube model loaded!");
             }
             catch (Exception e)
             {
