@@ -37,12 +37,10 @@ namespace PrestigeItems.Items
 
             itemDef.tier = ItemTier.Tier1; // Common
 
-            // TODO Delete improper asset access
             try
             {
                 Log.Debug($"Loading DevCube sprite...");
-                //itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
-                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("PrestigeKeyTrans.png");
+                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
                 Log.Debug($"DevCube sprite loaded!");
             }
             catch (Exception e)
@@ -52,9 +50,7 @@ namespace PrestigeItems.Items
 
             try { 
             Log.Debug($"Loading DevCube model...");
-                //itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
-
-                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("PrestigeKeyTiltedTrans.prefab");
+                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCube.prefab");
                 Log.Debug($"DevCube model loaded!");
             }
             catch (Exception e)

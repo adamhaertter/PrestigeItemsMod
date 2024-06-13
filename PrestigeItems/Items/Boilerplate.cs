@@ -35,34 +35,8 @@ namespace PrestigeItems.Items
             // myItemDef.deprecatedTier = ItemTier.Tier2;
 
             // You can create your own icons and prefabs through assetbundles, but to keep this boilerplate brief, we'll be using question marks.
-            //myItemDef.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
-            //myItemDef.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-
-            //TODO Delete
-            try
-            {
-                Log.Debug($"Loading DevCube sprite...");
-                //itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
-                myItemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("PrestigeBalancer.png");
-                Log.Debug($"DevCube sprite loaded!");
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.StackTrace);
-            }
-
-            try
-            {
-                Log.Debug($"Loading DevCube model...");
-                //itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
-
-                myItemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("PrestigeBalancer Variant.prefab");
-                Log.Debug($"DevCube model loaded!");
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.StackTrace);
-            }
+            myItemDef.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            myItemDef.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
 
             // Can remove determines
             // if a shrine of order,
