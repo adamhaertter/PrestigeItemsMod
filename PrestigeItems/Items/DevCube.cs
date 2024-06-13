@@ -36,6 +36,7 @@ namespace PrestigeItems.Items
             itemDef.loreToken = "DEVCUBE_LORE";
 
             itemDef.tier = ItemTier.Tier1; // Common
+
             try
             {
                 Log.Debug($"Loading DevCube sprite...");
@@ -49,8 +50,8 @@ namespace PrestigeItems.Items
 
             try { 
             Log.Debug($"Loading DevCube model...");
-                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCubeDisplay.prefab");
-            Log.Debug($"DevCube model loaded!");
+                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCube.prefab");
+                Log.Debug($"DevCube model loaded!");
             }
             catch (Exception e)
             {

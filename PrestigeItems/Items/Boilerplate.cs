@@ -11,7 +11,7 @@ namespace PrestigeItems.Items
     internal class Boilerplate
     {
         // We need our item definition to persist through our functions, and therefore make it a class field.
-        private static ItemDef myItemDef;
+        public static ItemDef myItemDef;
 
         internal static void Init()
         {

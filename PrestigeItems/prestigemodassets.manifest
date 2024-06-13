@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1151852282
+CRC: 1515934623
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2697e68d1330d55dc463766c58ad0d07
+    Hash: 372683df9b3fdc7238cc0dbe9459fc71
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1fe3abd029edb3522ae5dbbc711d0a74
@@ -29,7 +29,55 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Models/Prefabs/Item/PrestigeConvergence/PrestigeConvergence.prefab
+- Assets/Textures/Icons/Item/PrestigeSymbiote.png
+- Assets/Textures/Icons/Item/PrestigeKey.png
+- Assets/Textures/Icons/Item/PrestigeBand.png
+- Assets/Textures/Icons/Item/Alt/PrestigeMusic_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeFungus_Alt.png
 - Assets/Textures/Icons/Item/DevCube.png
-- Assets/Models/Prefabs/Item/DevCube/DevCubeDisplay.prefab
+- Assets/Textures/Icons/Item/Alt/PrestigeCell_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeBleed_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeGlasses_Alt.png
+- Assets/Models/Prefabs/Item/PrestigeCell/PrestigeCell.prefab
+- Assets/Models/Prefabs/Item/PrestigeKey/PrestigeKeyTrans.prefab
+- Assets/Models/Prefabs/Item/PrestigeKey/PrestigeKey.prefab
+- Assets/Textures/Icons/Item/PrestigeRevive.png
+- Assets/Models/Prefabs/Item/PrestigeBear/PrestigeBear.prefab
+- Assets/Models/Prefabs/Item/PrestigeMusic/PrestigeMusic.prefab
+- Assets/Models/Prefabs/Item/PrestigeBauble/PrestigeBauble.prefab
+- Assets/Textures/Icons/Item/PrestigeBauble.png
+- Assets/Models/Prefabs/Item/PrestigeRevive/PrestigeRevive.prefab
+- Assets/Models/Prefabs/Item/PrestigeGlasses/PrestigeGlasses.prefab
+- Assets/Textures/Icons/Item/PrestigeBear.png
+- Assets/Textures/Icons/Item/PrestigeMusic.png
+- Assets/Textures/Icons/Item/Consumed/PrestigeReviveConsumed.png
+- Assets/Textures/Icons/Item/Alt/DevCube_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeConvergence_Alt.png
+- Assets/Textures/Icons/Item/PrestigeConvergence.png
+- Assets/Models/Prefabs/Item/DevCube/DevCube.prefab
+- Assets/Models/Prefabs/Item/PrestigeSymbiote/PrestigeSymbiote.prefab
+- Assets/Textures/Icons/Item/Consumed/PrestigeKeyConsumed.png
+- Assets/Textures/Icons/Item/PrestigeGlasses.png
+- Assets/Textures/Icons/Item/PrestigeCell.png
+- Assets/Textures/Icons/Item/PrestigeBalancer.png
+- Assets/Textures/Icons/Item/Consumed/PrestigeBearConsumed.png
+- Assets/Textures/Icons/Item/Alt/PrestigeFlower_Alt.png
+- Assets/Models/Prefabs/Item/PrestigeFlower/PrestigeFlower.prefab
+- Assets/Textures/Icons/Item/PrestigeFungus.png
+- Assets/Textures/Icons/Item/Alt/PrestigeBear_Alt.png
 - Assets/Materials/Item/DevCube/DevCubeMaterial.mat
+- Assets/Textures/Icons/Item/Alt/PrestigeRevive_Alt.png
+- Assets/Models/Prefabs/Item/PrestigeBand/PrestigeBand.prefab
+- Assets/Models/Prefabs/Item/PrestigeBalancer/PrestigeBalancer.prefab
+- Assets/Textures/Icons/Item/Alt/PrestigeSymbiote_Alt.png
+- Assets/Textures/Icons/Item/PrestigeBleed.png
+- Assets/Models/Prefabs/Item/PrestigeFungus/PrestigeFungus.prefab
+- Assets/Models/Prefabs/Item/PrestigeBleed/PrestigeBleed.prefab
+- Assets/Textures/Icons/Item/PrestigeFlower.png
+- Assets/Textures/Icons/Item/Alt/PrestigeKey_Alt.png
+- Assets/Textures/Icons/Item/PrestigeKeyTrans.png
+- Assets/Textures/Icons/Item/Alt/PrestigeBauble_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeBalancer_Alt.png
+- Assets/Textures/Icons/Item/Alt/PrestigeBand_Alt.png
 Dependencies: []
