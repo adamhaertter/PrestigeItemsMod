@@ -2,11 +2,7 @@
 using R2API;
 using RoR2;
 using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using UnityEngine;
-using BepInEx;
 
 namespace PrestigeItems.Items
 {
@@ -39,16 +35,13 @@ namespace PrestigeItems.Items
             itemDef.descriptionToken = itemId + "_DESCRIPTION";
             itemDef.loreToken = itemId + "_LORE";
 
-            //itemDef.tier = ItemTier.Tier2; // TODO Replace with own tier. (Common) 
-
-            ItemTierCatalog.availability.CallWhenAvailable(() =>           
-             {
+            // Set tier to 2 (green)
+            ItemTierCatalog.availability.CallWhenAvailable(() =>
+            {
                 if (itemDef) itemDef.tier = ItemTier.Tier2;
-             });
+            });
 
-
-
-            // TODO Load your assets
+            // Load Assets
             itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeBleed_Alt.png");
             itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeBleed.prefab");
 
@@ -64,33 +57,31 @@ namespace PrestigeItems.Items
         // The game logic for the item's functionality goes in this method
         public static void Hooks()
         {
-            // TODO Write item functionality. Start with the trigger, then write the rest. See other item implementations for examples.
-            On.RoR2.GlobalEventManager.OnHitEnemy += prestigeBleedEffect;
-        }
-
-        private static void prestigeBleedEffect(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
-        {
-            orig(self, damageInfo, victim);
-
-            // Doing the dub
-            if (damageInfo.procCoefficient <= 0.0 || damageInfo.rejected || !(bool)damageInfo.attacker)
-                return;
-
-            CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-            CharacterBody victimBody = victim.GetComponent<CharacterBody>();
-
-            if (attackerBody && victimBody)
+            // On hitting an enemy
+            On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
             {
-                var itemCount = attackerBody.inventory.GetItemCount(itemDef.itemIndex);
+                orig(self, damageInfo, victim);
+                
+                // Get relevant event information
+                CharacterBody attackerCharacterBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                CharacterBody victimCharacterBody = victim.GetComponent<CharacterBody>();
 
-                if (itemCount > 0 && RoR2.Util.CheckRoll(10f + (5f * itemCount - 1) * damageInfo.procCoefficient, attackerBody.master))
+                // Check if returned non-null
+                if (attackerCharacterBody != null && victimCharacterBody != null)
                 {
-                    Log.Debug($"Enemy hit with Prestige Bleed in attacker's inventory. BuffList initialized. Conditions met, calculating buff...");
+                    // Get item count to see if item in inventory, and for chance calculation
+                    var itemCount = attackerCharacterBody.inventory.GetItemCount(itemDef.itemIndex);
 
-                    victimBody.AddTimedBuff(RoR2Content.Buffs.Cripple, 3);
-                    
+                    // Calculate roll
+                    if (itemCount > 0 && RoR2.Util.CheckRoll((10f + (5f * (itemCount - 1))) * damageInfo.procCoefficient, attackerCharacterBody.master))
+                    {
+                        var rollPercentage = ((10f + (5f * (itemCount - 1))) * damageInfo.procCoefficient);
+                        Log.Debug($"Enemy hit with Prestige Bleed. Player has {itemCount} stacks in inventory with a total chance of {rollPercentage}%. Playable character used an attack with a proc coefficient of {damageInfo.procCoefficient}");
+
+                        victimCharacterBody.AddTimedBuff(RoR2Content.Buffs.Cripple, 3);
+                    }
                 }
-            }
+            };
         }
 
         // String definitions / key lookup
