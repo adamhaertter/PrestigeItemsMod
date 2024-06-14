@@ -3,8 +3,10 @@ using R2API;
 using RoR2;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using BepInEx;
 
 namespace PrestigeItems.Items
 {
@@ -37,11 +39,18 @@ namespace PrestigeItems.Items
             itemDef.descriptionToken = itemId + "_DESCRIPTION";
             itemDef.loreToken = itemId + "_LORE";
 
-            itemDef.tier = ItemTier.Tier1; // TODO Replace with own tier. (Common) 
+            //itemDef.tier = ItemTier.Tier2; // TODO Replace with own tier. (Common) 
+
+            ItemTierCatalog.availability.CallWhenAvailable(() =>           
+             {
+                if (itemDef) itemDef.tier = ItemTier.Tier2;
+             });
+
+
 
             // TODO Load your assets
-            itemDef.pickupIconSprite = AssetUtil.LoadSprite("");
-            itemDef.pickupModelPrefab = AssetUtil.LoadModel("");
+            itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeBleed_Alt.png");
+            itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeBleed.prefab");
 
             itemDef.canRemove = true;
             itemDef.hidden = false;
@@ -56,20 +65,44 @@ namespace PrestigeItems.Items
         public static void Hooks()
         {
             // TODO Write item functionality. Start with the trigger, then write the rest. See other item implementations for examples.
+            On.RoR2.GlobalEventManager.OnHitEnemy += prestigeBleedEffect;
         }
 
+        private static void prestigeBleedEffect(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
+        {
+            orig(self, damageInfo, victim);
 
+            // Doing the dub
+            if (damageInfo.procCoefficient <= 0.0 || damageInfo.rejected || !(bool)damageInfo.attacker)
+                return;
+
+            CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+            CharacterBody victimBody = victim.GetComponent<CharacterBody>();
+
+            if (attackerBody && victimBody)
+            {
+                var itemCount = attackerBody.inventory.GetItemCount(itemDef.itemIndex);
+
+                if (itemCount > 0 && RoR2.Util.CheckRoll(10f + (5f * itemCount - 1) * damageInfo.procCoefficient, attackerBody.master))
+                {
+                    Log.Debug($"Enemy hit with Prestige Bleed in attacker's inventory. BuffList initialized. Conditions met, calculating buff...");
+
+                    victimBody.AddTimedBuff(RoR2Content.Buffs.Cripple, 3);
+                    
+                }
+            }
+        }
 
         // String definitions / key lookup
         private static void AddTokens()
         {
             // TODO Add the text as it appears in game.
-            LanguageAPI.Add(itemId + "", "Item Name");
-            LanguageAPI.Add(itemId + "_NAME", "Item Name");
-            LanguageAPI.Add(itemId + "_PICKUP", "Pickup Flavor Text / Basic Description");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", "A Detailed Description of the Item's Mechanics.");
+            LanguageAPI.Add(itemId + "", "Refined Shard");
+            LanguageAPI.Add(itemId + "_NAME", "Refined Shard");
+            LanguageAPI.Add(itemId + "_PICKUP", "And his shard was refined.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", "10% chance (+5% per stack) to inflict cripple on an enemy.");
 
-            string lore = "Lore Text"; //TODO Write your lore text here to be shown in the logbook.
+            string lore = "10 years ago I saw a woman get dragged away by five men and i did nothing to stop it"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
         }
 
