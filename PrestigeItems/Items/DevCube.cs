@@ -37,29 +37,9 @@ namespace PrestigeItems.Items
 
             itemDef.tier = ItemTier.Tier1; // Common
 
-            try
-            {
-                Log.Debug($"Loading DevCube sprite...");
-                itemDef.pickupIconSprite = AssetUtil.bundle.LoadAsset<Sprite>("DevCube.png");
-                Log.Debug($"DevCube sprite loaded!");
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.StackTrace);
-            }
+            itemDef.pickupIconSprite = AssetUtil.LoadSprite("DevCube.png");
+            itemDef.pickupModelPrefab = AssetUtil.LoadModel("DevCube.prefab");
 
-            try { 
-            Log.Debug($"Loading DevCube model...");
-                itemDef.pickupModelPrefab = AssetUtil.bundle.LoadAsset<GameObject>("DevCube.prefab");
-                Log.Debug($"DevCube model loaded!");
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.StackTrace);
-            }
-
-            //itemDef.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
-            //itemDef.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             itemDef.canRemove = true;
             itemDef.hidden = false;
 
