@@ -1,6 +1,8 @@
 # Prestige Items Mod
+<p>
 <img src="https://github.com/yurijserrano/Github-Profile-Readme-Logos/blob/master/programming%20languages/c%23.svg?raw=true" height="50">
 <img src="https://github.com/yurijserrano/Github-Profile-Readme-Logos/blob/master/tools/unity.png?raw=true" height=50>
+</p>
 
 ## Description
 
