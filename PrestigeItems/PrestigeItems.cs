@@ -43,12 +43,13 @@ namespace PrestigeItems
 
             // Initialize item classes
             DevCube.Init();
-            Boilerplate.Init(); // Disabled for now
+            //Boilerplate.Init(); // Disabled for now
         }
 
         // The Update() method is run on every frame of the game.
         private void Update()
         {
+            /* // These are debug controls. I'm disabling them during gameplay.
             // This if statement checks if the player has currently pressed F2.
             if (Input.GetKeyDown(KeyCode.F2))
             {
@@ -68,9 +69,10 @@ namespace PrestigeItems
 
                 // And then drop our defined item in front of the player.
 
-                Log.Info($"Player pressed F2. Spawning our custom item 2 at coordinates {transform.position}");
+                Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(Boilerplate.myItemDef.itemIndex), transform.position, transform.forward * 20f);
             }
+            */
         }
     }
 }
