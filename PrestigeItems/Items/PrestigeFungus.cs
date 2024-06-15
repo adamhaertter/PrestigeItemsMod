@@ -15,7 +15,7 @@ namespace PrestigeItems.Items
     {
         public static ItemDef itemDef;
         private static String itemId = "PRESTIGEFUNGUS";
-        private static int chestPrice;
+        private static int chestPrice = 25; // Starting price
         private static float basePercentGained = 0.04f; // 4%
         private static float percentGainedPerStack = 0.02f; // +2% per stack
 
@@ -77,6 +77,7 @@ namespace PrestigeItems.Items
                         break;
                     }
                 }
+                // If no small chests spawn on the map, retains the price from the previous stage. Defaults to 25.
             };
 
         }
