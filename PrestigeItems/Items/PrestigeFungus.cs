@@ -15,7 +15,7 @@ namespace PrestigeItems.Items
     {
         public static ItemDef itemDef;
         private static String itemId = "PRESTIGEFUNGUS";
-        private static int chestPrice = 25; // Starting price
+        private static int chestPrice = 25; // Default fallback price
         private static float basePercentGained = 0.04f; // 4%
         private static float percentGainedPerStack = 0.02f; // +2% per stack
 
@@ -88,7 +88,7 @@ namespace PrestigeItems.Items
             LanguageAPI.Add(itemId + "", "Charting Fungus");
             LanguageAPI.Add(itemId + "_NAME", "Charting Fungus");
             LanguageAPI.Add(itemId + "_PICKUP", "Gain gold while sprinting.");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", $"Gain {basePercentGained*100}% (+{percentGainedPerStack*100}% per stack) of the price of a small chest every second while sprinting.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", $"<style=cIsUtility>Gain {basePercentGained * 100}%</style> <style=cStack>(+{percentGainedPerStack * 100}% per stack)</style> of the price of a <style=cHumanObjective>small chest in gold</style> every second <style=cIsUtility>while sprinting.</style>");
 
             string lore = "Hello :D \n\n I like money :D"; //TODO Write some real lore maybe
             LanguageAPI.Add(itemId + "_LORE", lore);
