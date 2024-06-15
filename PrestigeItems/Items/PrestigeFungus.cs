@@ -1,4 +1,5 @@
-﻿using PrestigeItems.Util;
+﻿using IL.RoR2.Stats;
+using PrestigeItems.Util;
 using R2API;
 using RoR2;
 using RoR2.Items;
@@ -14,6 +15,9 @@ namespace PrestigeItems.Items
     {
         public static ItemDef itemDef;
         private static String itemId = "PRESTIGEFUNGUS";
+        private static int chestPrice;
+        private static float basePercentGained = 0.04f; // 4%
+        private static float percentGainedPerStack = 0.02f; // +2% per stack
 
         internal static void Init()
         {
@@ -45,7 +49,6 @@ namespace PrestigeItems.Items
                 if (itemDef) itemDef.tier = ItemTier.Tier2;
             });
 
-            // TODO Load your assets
             itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeFungus_Alt.png");
             itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeFungus.prefab");
 
@@ -54,25 +57,37 @@ namespace PrestigeItems.Items
 
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.AIBlacklist, ItemTag.Utility, ItemTag.SprintRelated // TODO Add item tags like ItemTag.____
+                ItemTag.AIBlacklist, ItemTag.Utility, ItemTag.SprintRelated
             };
         }
 
         // The game logic for the item's functionality goes in this method
         public static void Hooks()
         {
-            // TODO Write item functionality. Start with the trigger, then write the rest. See other item implementations for examples.
+            Stage.onStageStartGlobal += (stage) =>
+            {
+                var priceChecks = SceneDirector.FindObjectsOfType<PurchaseInteraction>();
+                foreach (var chest in priceChecks)
+                {
+                    // Get the price of a small chest when you load into a new stage
+                    if (chest.name.Contains("Chest1") && chest.costType == CostTypeIndex.Money)
+                    {
+                        chestPrice = chest.cost; 
+                        Log.Debug($"Found chest price at {chestPrice}");
+                        break;
+                    }
+                }
+            };
+
         }
-
-
 
         // String definitions / key lookup
         private static void AddTokens()
         {
             LanguageAPI.Add(itemId + "", "Charting Fungus");
             LanguageAPI.Add(itemId + "_NAME", "Charting Fungus");
-            LanguageAPI.Add(itemId + "_PICKUP", "Gain money while you sprint.");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", "Gain 4% (+2% per stack) of the price of a small chest every second while sprinting.");
+            LanguageAPI.Add(itemId + "_PICKUP", "Gain gold while sprinting.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", $"Gain {basePercentGained*100}% (+{percentGainedPerStack*100}% per stack) of the price of a small chest every second while sprinting.");
 
             string lore = "Hello :D \n\n I like money :D"; //TODO Write some real lore maybe
             LanguageAPI.Add(itemId + "_LORE", lore);
@@ -86,7 +101,7 @@ namespace PrestigeItems.Items
 
             private void onEnable()
             {
-                Log.Debug($"onEnable entered for PrestigeFungus");
+                //Log.Debug($"onEnable entered for PrestigeFungus");
             }
 
             // FixedUpdate runs on game tick update
@@ -97,10 +112,10 @@ namespace PrestigeItems.Items
                     sprintTimer -= Time.fixedDeltaTime; // Subtract updateFrames / ticks. Ref: https://docs.unity3d.com/ScriptReference/Time.html
                     if(sprintTimer <= 0f && base.body.moveSpeed > 0f)
                     {
-                        Log.Debug($"PrestigeFungus: The sprintTimer has reached 0.");
-                        // TODO Apply gold.
+                        //Log.Debug($"PrestigeFungus: The sprintTimer has reached 0.");
+                        double scaleFactor = basePercentGained + percentGainedPerStack * (base.body.inventory.GetItemCount(itemDef.itemIndex) - 1);
                         
-                        body.master.GiveMoney(1);
+                        body.master.GiveMoney((uint)(int)Math.Ceiling(scaleFactor * chestPrice)); // Ceiling to ensure we always give at least 1 gold.
                         sprintTimer = 1f; // Reset to 1 second timer.
                     }
                 }
