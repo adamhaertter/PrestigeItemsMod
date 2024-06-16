@@ -91,7 +91,7 @@ namespace PrestigeItems.Items
             LanguageAPI.Add(itemId + "", "Refined Shard");
             LanguageAPI.Add(itemId + "_NAME", "Refined Shard");
             LanguageAPI.Add(itemId + "_PICKUP", "And his shard was refined.");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", "10% chance (+5% per stack) to inflict cripple on an enemy.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", "<style=cIsDamage>10%</style> <style=cStack>(+5% per stack)</style> chance to inflict <style=cLunarObjective>cripple</style> on an enemy.");
 
             string lore = "10 years ago I saw a woman get dragged away by five men and i did nothing to stop it"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
