@@ -37,7 +37,11 @@ namespace PrestigeItems.Items
             itemDef.descriptionToken = itemId + "_DESCRIPTION";
             itemDef.loreToken = itemId + "_LORE";
 
-            itemDef.tier = ItemTier.Tier1; // TODO Replace with own tier. (Common) 
+            // TODO Replace with own tier (Common)
+            ItemTierCatalog.availability.CallWhenAvailable(() =>
+            {
+                if (itemDef) itemDef.tier = ItemTier.Tier1;
+            });
 
             // TODO Load your assets
             itemDef.pickupIconSprite = AssetUtil.LoadSprite(""); 
