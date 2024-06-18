@@ -45,6 +45,7 @@ namespace PrestigeItems
 
             // Initialize item classes
             DevCube.Init();
+            PrestigeBleed.Init();
             //Boilerplate.Init(); // Disabled for now
             PrestigeFungus.Init();
         }
@@ -73,7 +74,7 @@ namespace PrestigeItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeFungus.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
             */
         }
