@@ -1,8 +1,8 @@
 ﻿{
 	"name": "Prestige_Items_Beta",
-	"version_number": "0.0.1",
+	"version_number": "0.1.0",
 	"website_url": "https://github.com/adamhaertter/PrestigeItemsMod",
-	"description": "Adds 1 item, the Dev Cube. More to come maybe as I learn how to mod more.",
+	"description": "Adds 3 items to the game. More to come as I learn more about modding!",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.2108",
 		"RiskofThunder-HookGenPatcher-1.2.3",

@@ -25,14 +25,14 @@ Find an issue that's not listed below? Please check out the Issues tab and creat
 #### Implemented
 | Icon | Name | Description |
 | --- | --- | --- |
-| ![DevCube Icon](https://i.imgur.com/cVVPURL.png) | Dev Cube | Killing an enemy grants the holder a random status buff for 4 (+1 per stack) seconds. |
+| ![DevCube Icon](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/af645e61-11b9-43ba-9852-6d71e0b5e350) | Dev Cube | Killing an enemy grants the holder a random status buff for 4 (+1 per stack) seconds. |
+| ![PrestigeBleed_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/9f6547fa-7a62-42a3-b81f-503685d3dc69) | Refined Shard | 10% (+5% per stack) chance to Cripple the enemy on hit. |
+| ![PrestigeFungus_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/78c0f7a3-5e6c-4855-8f50-cdbd3091a5e6) | Charting Fungus | Gain gold while sprinting. |
 
 #### Planned
 Mechanics subject to change throughout development. Each item is tracked in it's own GitHub Issue and branch.
 | Icon | Name | Description |
 | --- | --- | --- |
-| ![PrestigeBleed_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/9f6547fa-7a62-42a3-b81f-503685d3dc69) | Refined Shard | 10% (+5% per stack) chance to Cripple the enemy on hit. |
-| ![PrestigeFungus_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/78c0f7a3-5e6c-4855-8f50-cdbd3091a5e6) | Charting Fungus | Gain gold while sprinting. |
 | ![PrestigeFlower_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/dd38806d-0b00-4676-8789-a249befe084d) | Solar Flower | Apply Overheat to enemies at full health or those that already have it. | 
 | ![PrestigeBear_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/6ff04ab5-73e0-4b6b-b402-2668d155bdeb) | Higher Hopes | When dropping below full health, gain a Power Buff for a short time. Goes on cooldown. |
 | ![PrestigeBauble_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/f7874d09-f6d5-4cf8-aa2e-1666448da127) | Promobauble | Chance to promote an enemy's slowness debuffs to the next tier on hit. |
