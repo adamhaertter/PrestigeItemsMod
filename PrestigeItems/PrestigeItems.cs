@@ -53,7 +53,7 @@ namespace PrestigeItems
         // The Update() method is run on every frame of the game.
         private void Update()
         {
-            // These are debug controls. I'm disabling them during gameplay.
+            /* // These are debug controls. I'm disabling them during gameplay.
             // This if statement checks if the player has currently pressed F2.
             if (Input.GetKeyDown(KeyCode.F2))
             {
@@ -76,7 +76,7 @@ namespace PrestigeItems
                 Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
-            
+            */
         }
     }
 }

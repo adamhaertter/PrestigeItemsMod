@@ -50,7 +50,7 @@ namespace PrestigeItems.Items
 
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.BrotherBlacklist, ItemTag.Utility // TODO Add item tags like ItemTag.____
+                ItemTag.Damage
             };
         }
 
@@ -87,10 +87,10 @@ namespace PrestigeItems.Items
         // String definitions / key lookup
         private static void AddTokens()
         {
-            // TODO Add the text as it appears in game.
+            // Language Tokens
             LanguageAPI.Add(itemId + "", "Refined Shard");
             LanguageAPI.Add(itemId + "_NAME", "Refined Shard");
-            LanguageAPI.Add(itemId + "_PICKUP", "And his shard was refined.");
+            LanguageAPI.Add(itemId + "_PICKUP", "Chance to cripple enemies on hit.");
             LanguageAPI.Add(itemId + "_DESCRIPTION", "<style=cIsDamage>10%</style> <style=cStack>(+5% per stack)</style> chance to inflict <style=cLunarObjective>cripple</style> on an enemy.");
 
             string lore = "10 years ago I saw a woman get dragged away by five men and i did nothing to stop it"; //TODO Write your lore text here to be shown in the logbook.
