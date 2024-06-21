@@ -14,8 +14,7 @@ namespace PrestigeItems.Items
         private static String itemId = "PRESTIGEBAUBLE";
         private static int basePercent = 10;
         private static int stackPercent = 10;
-        private static List<BuffDef> progressionList = new List<BuffDef>() {
-        RoR2Content.Buffs.Slow50, RoR2Content.Buffs.ClayGoo, RoR2Content.Buffs.Slow60, RoR2Content.Buffs.Slow80, RoR2Content.Buffs.Nullified, RoR2Content.Buffs.LunarSecondaryRoot};
+        private static List<BuffDef> progressionList;
 
         internal static void Init()
         {
@@ -47,7 +46,7 @@ namespace PrestigeItems.Items
                 if (itemDef) itemDef.tier = ItemTier.Tier3;
             });
 
-            // TODO Load your assets
+            // Load assets
             itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeBauble_Alt");
             itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeBauble");
 
@@ -63,7 +62,72 @@ namespace PrestigeItems.Items
         // The game logic for the item's functionality goes in this method
         public static void Hooks()
         {
-            // TODO Write item functionality. Start with the trigger, then write the rest. See other item implementations for examples.
+            Run.onRunStartGlobal += (orig) =>
+            {
+                // Define the progressionList since the buffs are not available at initialization apparently.
+                // TODO Can probably be reworked so it doesn't need to load every run but this is a quick and dirty solution
+                progressionList = new List<BuffDef>() 
+                {
+                    RoR2Content.Buffs.Slow50, 
+                    RoR2Content.Buffs.ClayGoo, 
+                    RoR2Content.Buffs.Slow60, 
+                    RoR2Content.Buffs.Slow80, 
+                    RoR2Content.Buffs.Nullified, 
+                    RoR2Content.Buffs.LunarSecondaryRoot
+                };
+                Log.Debug($"PrestigeBauble's Progession List has been initialized.");
+            };
+
+            // On hitting an enemy
+            On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
+            {
+                orig(self, damageInfo, victim);
+                
+                CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                CharacterBody victimBody = victim.GetComponent<CharacterBody>();
+
+                // Is there a victim
+                if (attackerBody != null && victimBody != null)
+                {
+                    // Get item count to see if item in inventory, and for chance calculation
+                    var itemCount = attackerBody.inventory.GetItemCount(itemDef.itemIndex);
+
+                    // Calculate roll        
+                    if (itemCount > 0 && RoR2.Util.CheckRoll((10f + (5f * (itemCount - 1))) * damageInfo.procCoefficient, attackerBody.master))
+                    {
+                        var rollPercentage = ((basePercent + (stackPercent * (itemCount - 1))) * damageInfo.procCoefficient);
+                        Log.Debug($"PrestigeBauble hits");
+
+                        // ********* BUG ******************
+                        // TODO Once Lunar Root expires on the enemy, the item seems to stop working? Otherwise seems to work well for a first pass
+
+                        // If we are at max, apply more lunar root
+                        if (victimBody.HasBuff(RoR2Content.Buffs.LunarSecondaryRoot)) 
+                        {
+                            Log.Debug($"PrestigeBauble applying another stack of Lunar Root to the victim.");
+                            victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f, 999);
+                            return;
+                        }
+
+                        for (int i = progressionList.Count-1; i >= 0; i--)
+                        {
+                            // If we are in the middle, upgrade the slow
+                            if (victimBody.HasBuff(progressionList[i]))
+                            {
+                                Log.Debug($"PrestigeBauble upgrading {progressionList[i]} into {progressionList[i+1]}");
+                                victimBody.RemoveBuff(progressionList[i]);
+                                victimBody.AddTimedBuff(progressionList[i+1], 5f);
+                                return;
+                            }
+                        }
+
+                        // If they have no slows, give them baby slow
+                        victimBody.AddTimedBuff(progressionList[0], 5f);
+                        Log.Debug($"PrestigeBauble found no slows, applying {progressionList[0]}");
+                    }
+
+                }
+            };
         }
 
 

@@ -48,6 +48,7 @@ namespace PrestigeItems
             PrestigeBleed.Init();
             //Boilerplate.Init(); // Disabled for now
             PrestigeFungus.Init();
+            PrestigeBauble.Init();
         }
 
         // The Update() method is run on every frame of the game.
@@ -74,7 +75,7 @@ namespace PrestigeItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBauble.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
             */
         }
