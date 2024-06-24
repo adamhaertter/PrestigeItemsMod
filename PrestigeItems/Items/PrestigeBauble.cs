@@ -96,11 +96,9 @@ namespace PrestigeItems.Items
                     if (itemCount > 0 && RoR2.Util.CheckRoll((10f + (5f * (itemCount - 1))) * damageInfo.procCoefficient, attackerBody.master))
                     {
                         var rollPercentage = ((basePercent + (stackPercent * (itemCount - 1))) * damageInfo.procCoefficient);
-                        Log.Debug($"PrestigeBauble hits");
+                        //Log.Debug($"PrestigeBauble hits");
 
-                        // ********* BUG ******************
-                        // TODO Once Lunar Root expires on the enemy, the item seems to stop working? Otherwise seems to work well for a first pass
-
+                        Log.Debug($"Victim has {victimBody.GetBuffCount(progressionList[0].buffIndex)} stacks of Red Slow, {victimBody.GetBuffCount(progressionList[5].buffIndex)} stacks of Lunar Root");
                         // If we are at max, apply more lunar root
                         if (victimBody.HasBuff(RoR2Content.Buffs.LunarSecondaryRoot)) 
                         {
@@ -115,7 +113,8 @@ namespace PrestigeItems.Items
                             if (victimBody.HasBuff(progressionList[i]))
                             {
                                 Log.Debug($"PrestigeBauble upgrading {progressionList[i]} into {progressionList[i+1]}");
-                                victimBody.RemoveBuff(progressionList[i]);
+                                victimBody.ClearTimedBuffs(progressionList[i].buffIndex);
+                                //victimBody.RemoveBuff(progressionList[i].buffIndex);
                                 victimBody.AddTimedBuff(progressionList[i+1], 5f);
                                 return;
                             }
