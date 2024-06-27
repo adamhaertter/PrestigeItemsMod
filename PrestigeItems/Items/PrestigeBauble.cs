@@ -1,4 +1,5 @@
-﻿using PrestigeItems.Util;
+﻿using Newtonsoft.Json.Utilities;
+using PrestigeItems.Util;
 using R2API;
 using RoR2;
 using System;
@@ -98,16 +99,38 @@ namespace PrestigeItems.Items
                         var rollPercentage = ((basePercent + (stackPercent * (itemCount - 1))) * damageInfo.procCoefficient);
                         //Log.Debug($"PrestigeBauble hits");
 
-                        Log.Debug($"Victim has {victimBody.GetBuffCount(progressionList[0].buffIndex)} stacks of Red Slow, {victimBody.GetBuffCount(progressionList[5].buffIndex)} stacks of Lunar Root");
+                        //Log.Debug($"Victim has {victimBody.GetBuffCount(progressionList[0].buffIndex)} stacks of Red Slow, {victimBody.GetBuffCount(progressionList[5].buffIndex)} stacks of Lunar Root");
+                        
                         // If we are at max, apply more lunar root
                         if (victimBody.HasBuff(RoR2Content.Buffs.LunarSecondaryRoot)) 
                         {
-                            Log.Debug($"PrestigeBauble applying another stack of Lunar Root to the victim.");
-                            victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f, 999);
+                            var timedBuffs = victimBody.timedBuffs;
+                            foreach (CharacterBody.TimedBuff buff in timedBuffs)
+                            {
+                                if (buff.buffIndex == RoR2Content.Buffs.LunarSecondaryRoot.buffIndex)
+                                {
+                                    Log.Debug($"Time on LunarRoot before new stack: {buff.timer}");
+                                }
+                            }
+
+                            //Log.Debug($"PrestigeBauble applying another stack of Lunar Root to the victim.");
+                            victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f, 20);
+                            
+                            // Gather info about how much lunar root is had.
+                            timedBuffs = victimBody.timedBuffs;
+                            foreach(CharacterBody.TimedBuff buff in timedBuffs)
+                            {
+                                if(buff.buffIndex == RoR2Content.Buffs.LunarSecondaryRoot.buffIndex)
+                                {
+                                    Log.Debug($"Time on LunarRoot after new stack: {buff.timer}");
+                                }
+                            }
+
+                            Log.Debug($"");
                             return;
                         }
 
-                        for (int i = progressionList.Count-1; i >= 0; i--)
+                        for (int i = progressionList.Count-2; i >= 0; i--)
                         {
                             // If we are in the middle, upgrade the slow
                             if (victimBody.HasBuff(progressionList[i]))
@@ -115,7 +138,14 @@ namespace PrestigeItems.Items
                                 Log.Debug($"PrestigeBauble upgrading {progressionList[i]} into {progressionList[i+1]}");
                                 victimBody.ClearTimedBuffs(progressionList[i].buffIndex);
                                 //victimBody.RemoveBuff(progressionList[i].buffIndex);
-                                victimBody.AddTimedBuff(progressionList[i+1], 5f);
+                                if(i == progressionList.Count-2)
+                                {
+                                    // Permit stacking for Lunar Root                                    
+                                    victimBody.AddTimedBuff(progressionList[i + 1], 3f, 20);
+                                } else
+                                {
+                                    victimBody.AddTimedBuff(progressionList[i + 1], 5f);
+                                }
                                 return;
                             }
                         }
