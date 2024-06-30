@@ -103,8 +103,6 @@ namespace PrestigeItems.Items
                 }
                 body.RecalculateStats();
                 };
-            
-                // TODO Manual integration with Transcendence to bypass our shield management and just use theirs. Or avoid!
 
         }
 
