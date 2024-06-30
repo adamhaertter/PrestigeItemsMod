@@ -54,7 +54,7 @@ namespace PrestigeItems.Items
 
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Utility
+                ItemTag.Utility, ItemTag.Damage, ItemTag.Healing
             };
         }
 
@@ -70,7 +70,6 @@ namespace PrestigeItems.Items
                 {
                     args.healthMultAdd -= 0.5f;
                     args.baseShieldAdd += sender.maxHealth;
-                    // TODO Add flat health increase?
                     if (sender.healthComponent.shield > 0f)
                     {
                         args.healthMultAdd += itemCount * commonScaling; // Takes a sec / an action to kick in 
@@ -113,11 +112,12 @@ namespace PrestigeItems.Items
             LanguageAPI.Add(itemId + "", "Parasitic Symbiosis");
             LanguageAPI.Add(itemId + "_NAME", "Parasitic Symbiosis");
 
-            // TODO Update these as the implementation changes / add styling
-            LanguageAPI.Add(itemId + "_PICKUP", "Half your health is shields, but all your stats are buffed while your shields are up.");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", "Convert half your health to regenerating shields, gaining 25% (+20% per stack) maximum health. ALL stats are buffed by 20% (+20% per stack) while you have a shield.");
+            LanguageAPI.Add(itemId + "_PICKUP", "Half your health is shield, but ALL of your stats are buffed while your shields are up.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", $"<style=cIsHealing>Convert half your health</style> to <style=cIsHealing>regenerating shields</style>. " +
+                $"<style=cIsUtility>ALL stats</style> are buffed by <style=cIsUtility>{commonScaling * 100}%</style> " +
+                $"<style=cStack>(+{commonScaling * 100}% per stack)</style> while you have a <style=cIsHealing>shield active</style>.");
 
-            string lore = "Lore Text"; //TODO Write your lore text here to be shown in the logbook.
+            string lore = "Two bugs, sitting in a yin-yang, five feet apart because they are in perfect harmony <3"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
         }
     }
