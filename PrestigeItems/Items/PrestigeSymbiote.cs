@@ -47,8 +47,7 @@ namespace PrestigeItems.Items
             });
 
             itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeSymbiote_Alt.png"); 
-            itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeSymbiote.prefab");
-            // TODO The model is fucked up in game
+            itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeSymbioteClean.prefab");
 
             itemDef.canRemove = true; 
             itemDef.hidden = false; 

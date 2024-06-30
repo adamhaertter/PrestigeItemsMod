@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1515934623
+CRC: 493933867
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 372683df9b3fdc7238cc0dbe9459fc71
+    Hash: e02f04778d18c877514b098365cc06bb
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1fe3abd029edb3522ae5dbbc711d0a74
@@ -38,6 +38,7 @@ Assets:
 - Assets/Textures/Icons/Item/DevCube.png
 - Assets/Textures/Icons/Item/Alt/PrestigeCell_Alt.png
 - Assets/Textures/Icons/Item/Alt/PrestigeBleed_Alt.png
+- Assets/Models/Prefabs/Item/PrestigeSymbiote/PrestigeSymbioteClean.prefab
 - Assets/Textures/Icons/Item/Alt/PrestigeGlasses_Alt.png
 - Assets/Models/Prefabs/Item/PrestigeCell/PrestigeCell.prefab
 - Assets/Models/Prefabs/Item/PrestigeKey/PrestigeKeyTrans.prefab
