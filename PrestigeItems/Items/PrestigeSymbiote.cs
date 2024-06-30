@@ -47,6 +47,7 @@ namespace PrestigeItems.Items
 
             itemDef.pickupIconSprite = AssetUtil.LoadSprite("PrestigeSymbiote_Alt.png"); 
             itemDef.pickupModelPrefab = AssetUtil.LoadModel("PrestigeSymbiote.prefab");
+            // TODO The model is fucked up in game
 
             itemDef.canRemove = true; 
             itemDef.hidden = false; 
@@ -60,21 +61,6 @@ namespace PrestigeItems.Items
         // The game logic for the item's functionality goes in this method
         public static void Hooks()
         {
-            /*
-            On.RoR2.HealthComponent.GetHealthBarValues += (orig, self) =>
-            {
-                HealthComponent.HealthBarValues healthStats = orig(self);
-                if (self.body.inventory.GetItemCount(itemDef) > 0)
-                {
-                    healthStats.healthFraction = 0.5f;
-                    healthStats.shieldFraction = 0.5f; // Half health is shields
-                    self.shield = 0.5f;
-                    // This doesn't register as having shields in game. Other shield pickups make it work, but otherwise it just is visually blue and doesn't function rn
-                }
-                return healthStats;
-            };
-            */
-
             RecalculateStatsAPI.GetStatCoefficients += (sender, args) =>
             {
                 if (sender == null || sender.inventory == null) return;
@@ -82,26 +68,46 @@ namespace PrestigeItems.Items
                 int itemCount = sender.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
                 {
-                    // TODO 2 issues: Sprinting instantly restores health, and the shield addition is not exactly 50% like i want. But it functions lol
-                    args.healthMultAdd += itemCount * commonScaling;
-                    args.baseShieldAdd += sender.healthComponent.fullHealth / 2;
-                    sender.maxShield = sender.maxHealth / 2;
-                    sender.maxHealth = sender.maxHealth / 2;
-                    //args.baseShieldAdd += args.baseHealthAdd / 2;
+                    args.healthMultAdd -= 0.5f;
+                    args.baseShieldAdd += sender.maxHealth;
+                    // TODO Add flat health increase?
                     if (sender.healthComponent.shield > 0f)
-                    {                        
-                        args.regenMultAdd += itemCount * commonScaling;
+                    {
+                        args.healthMultAdd += itemCount * commonScaling;
+                        args.regenMultAdd += itemCount * commonScaling; // This is kinda useless tbh but oh well
                         args.moveSpeedMultAdd += itemCount * commonScaling;
                         args.damageMultAdd += itemCount * commonScaling;
                         args.attackSpeedMultAdd += itemCount * commonScaling;
-                        args.critAdd += args.critAdd * (1 + itemCount * commonScaling);
-                        args.armorAdd += args.armorAdd * (1 + itemCount * commonScaling);
-
-                        Log.Debug($"Stats recalculated with 1 Symbiote: ItemCount {itemCount}, Health {args.healthMultAdd}, Regen {args.regenMultAdd}, Damage {args.damageMultAdd}, AttackSpeed {args.attackSpeedMultAdd}, Crit {args.critAdd}, Armor {args.armorAdd}");
+                        args.critAdd += itemCount * (commonScaling * 100); 
+                        args.armorAdd += itemCount * (commonScaling * 100);
                     }
                 }
             };
 
+            /* NEVERMIND THIS DOESNT WORK
+            On.RoR2.CharacterBody.OnInventoryChanged += (orig, body) =>
+            {
+                int preCount = body.inventory.GetItemCount(itemDef);
+
+                orig(body);
+
+                int postCount = body.inventory.GetItemCount(itemDef);
+                Log.Debug($"Inventory Changed. preCount {preCount}, postCount {postCount}");
+                if (preCount != postCount)
+                {
+                    if (preCount == 0 && postCount == 1)
+                    {
+                        Log.Debug($"Setting manual adjustment of stats on first pickup. maxHealth {body.maxHealth}");
+                        float halfHealth = body.maxHealth / 2;
+                        body.maxHealth -= halfHealth;
+                        body.maxShield += halfHealth;
+                        Log.Debug($"Healthbar adjusted. New maxHealth {body.maxHealth}, maxShield {body.maxShield}");
+                    }
+                    //body.RecalculateStats();
+                    body.statsDirty = true; //recalc stats immediately if you change count of Symbiotes
+                }
+            };
+            */
             // TODO Manual integration with Transcendence to bypass our shield management and just use theirs. Or avoid!
 
         }
@@ -120,51 +126,5 @@ namespace PrestigeItems.Items
             string lore = "Lore Text"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
         }
-        /*
-        public class SymbioteBehavior : RoR2.Items.BaseItemBodyBehavior
-        {
-            [ItemDefAssociation(useOnServer = true, useOnClient = false)]
-            public static ItemDef GetItemDef() => itemDef;
-            private bool hasShield = false;
-
-            private void onEnable()
-            {
-                RecalculateStatsAPI.GetStatCoefficients += (sender, args) =>
-                {
-                    if (sender == null || sender.inventory == null) return;
-
-                    int itemCount = sender.inventory.GetItemCount(itemDef);
-                    if (itemCount > 0 & sender.GetComponent<HealthComponent>().shield > 0f
-                    )
-                    {
-                        args.healthMultAdd += itemCount * commonScaling;
-                        args.regenMultAdd += itemCount * commonScaling;
-                        args.moveSpeedMultAdd += itemCount * commonScaling;
-                        args.damageMultAdd += itemCount * commonScaling;
-                        args.attackSpeedMultAdd += itemCount * commonScaling;
-                        args.critAdd += args.critAdd * (1 + itemCount * commonScaling);
-                        args.armorAdd += args.armorAdd * (1 + itemCount * commonScaling);
-                    }
-                };
-            }
-
-            // FixedUpdate runs on game tick update
-            private void FixedUpdate()
-            {
-                if (base.body.healthComponent.shield > 0f) {
-                    hasShield = true;
-                } else
-                {
-                    hasShield = false;
-                }
-            }
-
-            public bool HasShield()
-            {
-                return hasShield;
-            }
-
-        }
-        */
     }
 }
