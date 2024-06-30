@@ -104,29 +104,30 @@ namespace PrestigeItems.Items
                         // If we are at max, apply more lunar root
                         if (victimBody.HasBuff(RoR2Content.Buffs.LunarSecondaryRoot)) 
                         {
+                            float currentRootDuration = 0f;
                             var timedBuffs = victimBody.timedBuffs;
                             foreach (CharacterBody.TimedBuff buff in timedBuffs)
                             {
                                 if (buff.buffIndex == RoR2Content.Buffs.LunarSecondaryRoot.buffIndex)
                                 {
-                                    Log.Debug($"Time on LunarRoot before new stack: {buff.timer}");
+                                    currentRootDuration = buff.timer;
                                 }
                             }
 
                             //Log.Debug($"PrestigeBauble applying another stack of Lunar Root to the victim.");
-                            victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f, 20);
+                            victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f + currentRootDuration);
                             
                             // Gather info about how much lunar root is had.
+                            /*
                             timedBuffs = victimBody.timedBuffs;
                             foreach(CharacterBody.TimedBuff buff in timedBuffs)
                             {
                                 if(buff.buffIndex == RoR2Content.Buffs.LunarSecondaryRoot.buffIndex)
                                 {
-                                    Log.Debug($"Time on LunarRoot after new stack: {buff.timer}");
+                                    Log.Debug($"Time on LunarRoot before {currentRootDuration}, after {buff.timer}");
                                 }
                             }
-
-                            Log.Debug($"");
+                            */
                             return;
                         }
 
@@ -137,11 +138,9 @@ namespace PrestigeItems.Items
                             {
                                 Log.Debug($"PrestigeBauble upgrading {progressionList[i]} into {progressionList[i+1]}");
                                 victimBody.ClearTimedBuffs(progressionList[i].buffIndex);
-                                //victimBody.RemoveBuff(progressionList[i].buffIndex);
                                 if(i == progressionList.Count-2)
-                                {
-                                    // Permit stacking for Lunar Root                                    
-                                    victimBody.AddTimedBuff(progressionList[i + 1], 3f, 20);
+                                {                              
+                                    victimBody.AddTimedBuff(progressionList[i + 1], 3f);
                                 } else
                                 {
                                     victimBody.AddTimedBuff(progressionList[i + 1], 5f);
