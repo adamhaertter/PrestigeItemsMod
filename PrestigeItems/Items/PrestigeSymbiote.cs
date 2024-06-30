@@ -1,12 +1,8 @@
-﻿using EntityStates.Engi.EngiWeapon;
-using PrestigeItems.Util;
+﻿using PrestigeItems.Util;
 using R2API;
 using RoR2;
 using System;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UIElements.UIR;
-using static RoR2.Items.BaseItemBodyBehavior;
 
 namespace PrestigeItems.Items
 {
@@ -15,7 +11,7 @@ namespace PrestigeItems.Items
         public static ItemDef itemDef;
         private static String itemId = "PRESTIGESYMBIOTE";
         private static readonly float commonScaling = 0.1f; // 10% mult chance
-        private static readonly float baseHealthIncrease = 0.25f; // 25% max health added off the bat 
+        //private static readonly float baseHealthIncrease = 0.25f; // 25% max health added off the bat 
 
         internal static void Init()
         {
@@ -111,7 +107,6 @@ namespace PrestigeItems.Items
         {
             LanguageAPI.Add(itemId + "", "Parasitic Symbiosis");
             LanguageAPI.Add(itemId + "_NAME", "Parasitic Symbiosis");
-
             LanguageAPI.Add(itemId + "_PICKUP", "Half your health is shield, but ALL of your stats are buffed while your shields are up.");
             LanguageAPI.Add(itemId + "_DESCRIPTION", $"<style=cIsHealing>Convert half your health</style> to <style=cIsHealing>regenerating shields</style>. " +
                 $"<style=cIsUtility>ALL stats</style> are buffed by <style=cIsUtility>{commonScaling * 100}%</style> " +
