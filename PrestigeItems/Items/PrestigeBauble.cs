@@ -164,11 +164,10 @@ namespace PrestigeItems.Items
         // String definitions / key lookup
         private static void AddTokens()
         {
-            // TODO Add the text as it appears in game.
             LanguageAPI.Add(itemId + "", "Promobauble");
             LanguageAPI.Add(itemId + "_NAME", "Promobauble");
             LanguageAPI.Add(itemId + "_PICKUP", "Gain the ability to inflict and promote slowness debuffs on enemies until they are rooted.");
-            LanguageAPI.Add(itemId + "_DESCRIPTION", $"{basePercent}% (+{stackPercent}% per stack) chance to promote the slowing debuff on the enemy to the next tier of slowness. Inflicts a low-level slow to enemies who have no slowness debuffs.");
+            LanguageAPI.Add(itemId + "_DESCRIPTION", $"<style=cIsUtility>{basePercent}%</style> <style=cStack>(+{stackPercent}% per stack)</style> chance to <style=cWorldEvent>promote</style> the <style=cIsUtility>current slowing debuff</style> on the enemy to the <style=cIsUtility>next tier of slowness</style>. Inflicts a <style=cIsUtility>low-level slow</style> to enemies who have <style=cIsUtility>no slowness debuffs</style>.");
 
             string lore = "Lore Text"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
