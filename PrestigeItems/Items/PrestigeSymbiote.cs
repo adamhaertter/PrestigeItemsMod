@@ -1,4 +1,5 @@
-﻿using PrestigeItems.Util;
+﻿using EntityStates.Engi.EngiWeapon;
+using PrestigeItems.Util;
 using R2API;
 using RoR2;
 using System;
@@ -13,8 +14,8 @@ namespace PrestigeItems.Items
     {
         public static ItemDef itemDef;
         private static String itemId = "PRESTIGESYMBIOTE";
-        private static float commonScaling = 0.1f; // 10% mult chance
-        private static float baseHealthIncrease = 0.25f; // 25% max health added off the bat
+        private static readonly float commonScaling = 0.1f; // 10% mult chance
+        private static readonly float baseHealthIncrease = 0.25f; // 25% max health added off the bat 
 
         internal static void Init()
         {
@@ -73,7 +74,7 @@ namespace PrestigeItems.Items
                     // TODO Add flat health increase?
                     if (sender.healthComponent.shield > 0f)
                     {
-                        args.healthMultAdd += itemCount * commonScaling;
+                        args.healthMultAdd += itemCount * commonScaling; // Takes a sec / an action to kick in 
                         args.regenMultAdd += itemCount * commonScaling; // This is kinda useless tbh but oh well
                         args.moveSpeedMultAdd += itemCount * commonScaling;
                         args.damageMultAdd += itemCount * commonScaling;
@@ -84,31 +85,27 @@ namespace PrestigeItems.Items
                 }
             };
 
-            /* NEVERMIND THIS DOESNT WORK
+            // This is intended to give you the proper proportion of health : shields on pickup rather than waiting for the first RecalculateStats call to happen (on action).
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, body) =>
             {
-                int preCount = body.inventory.GetItemCount(itemDef);
-
                 orig(body);
 
-                int postCount = body.inventory.GetItemCount(itemDef);
-                Log.Debug($"Inventory Changed. preCount {preCount}, postCount {postCount}");
-                if (preCount != postCount)
+                if (body.inventory.GetItemCount(itemDef) == 1)
                 {
-                    if (preCount == 0 && postCount == 1)
-                    {
-                        Log.Debug($"Setting manual adjustment of stats on first pickup. maxHealth {body.maxHealth}");
-                        float halfHealth = body.maxHealth / 2;
-                        body.maxHealth -= halfHealth;
-                        body.maxShield += halfHealth;
-                        Log.Debug($"Healthbar adjusted. New maxHealth {body.maxHealth}, maxShield {body.maxShield}");
-                    }
-                    //body.RecalculateStats();
-                    body.statsDirty = true; //recalc stats immediately if you change count of Symbiotes
+                    float halfHealth = body.maxHealth / 2;
+                    body.maxHealth -= halfHealth;
+                    body.maxShield += halfHealth;
+
+                    // Adjust health in case we have too much after the initial calculation
+                    if (body.healthComponent.health > body.maxHealth)
+                        body.healthComponent.health = body.maxHealth;
+                    if (body.healthComponent.shield > body.maxShield) 
+                        body.healthComponent.shield = body.maxShield;
                 }
-            };
-            */
-            // TODO Manual integration with Transcendence to bypass our shield management and just use theirs. Or avoid!
+                body.RecalculateStats();
+                };
+            
+                // TODO Manual integration with Transcendence to bypass our shield management and just use theirs. Or avoid!
 
         }
 
