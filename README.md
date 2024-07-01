@@ -27,7 +27,9 @@ Find an issue that's not listed below? Please check out the Issues tab and creat
 | --- | --- | --- |
 | ![DevCube Icon](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/af645e61-11b9-43ba-9852-6d71e0b5e350) | Dev Cube | Killing an enemy grants the holder a random status buff for 4 (+1 per stack) seconds. |
 | ![PrestigeBleed_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/9f6547fa-7a62-42a3-b81f-503685d3dc69) | Refined Shard | 10% (+5% per stack) chance to Cripple the enemy on hit. |
-| ![PrestigeFungus_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/78c0f7a3-5e6c-4855-8f50-cdbd3091a5e6) | Charting Fungus | Gain gold while sprinting. |
+| ![PrestigeFungus_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/78c0f7a3-5e6c-4855-8f50-cdbd3091a5e6) | Charting Fungus | Gain gold equal to 4% (+2% per stack) of the price of a small chest while sprinting. |
+| ![PrestigeBauble_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/f7874d09-f6d5-4cf8-aa2e-1666448da127) | Promobauble | 10% (+10% per stack) chance to promote an enemy's slowness debuffs to the next tier on hit. If no slows, chance to give the lowest slow on hit. |
+| ![PrestigeSymbiote_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/981e1135-9d36-4945-8ea4-0e92a8a6cc02) | Parasitic Symbiosis | Half your health becomes shield, but buffs all your stats by 10% (+10% per stack) while you have shield up. |
 
 #### Planned
 Mechanics subject to change throughout development. Each item is tracked in it's own GitHub Issue and branch.
@@ -35,11 +37,9 @@ Mechanics subject to change throughout development. Each item is tracked in it's
 | --- | --- | --- |
 | ![PrestigeFlower_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/dd38806d-0b00-4676-8789-a249befe084d) | Solar Flower | Apply Overheat to enemies at full health or those that already have it. | 
 | ![PrestigeBear_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/6ff04ab5-73e0-4b6b-b402-2668d155bdeb) | Higher Hopes | When dropping below full health, gain a Power Buff for a short time. Goes on cooldown. |
-| ![PrestigeBauble_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/f7874d09-f6d5-4cf8-aa2e-1666448da127) | Promobauble | Chance to promote an enemy's slowness debuffs to the next tier on hit. |
 | ![PrestigeMusic_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/e68d5841-863b-44c8-ba88-e6938372c936) | Ornate Banjo | Chance to inflict a burst of damage dealing Permanent Curse to the enemy. |
 | ![PrestigeRevive_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/1d171639-fc02-4b0b-8bd1-c179c24a6ef4) | All That Is Holy | Revives you, but sequences your items like a shrine of order. |
 | ![PrestigeKey_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/882f520c-764c-4b5e-9922-045fafbc988b) | Ethereal Key | Gives access to an interactible that gives access to a random portal on the next stage. |
-| ![PrestigeSymbiote_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/981e1135-9d36-4945-8ea4-0e92a8a6cc02) | Parasitic Symbiosis | Half your health is shield, but buffs all your stats while you have shield up. |
 | ![PrestigeCell_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/e6a04390-9d93-4121-ae52-9cd66e255e78) | Rogue Cell | Disables one skill per stage, but gives an extra charge to all other skills. |
 | ![PrestigeGlasses_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/6cfa2c21-5b64-4cb7-8f82-ed95d51be37f) | Deferred Optics | Chance to instantly remove an enemy from the field, saving them for later. |
 | ![PrestigeBand_Alt](https://github.com/adamhaertter/PrestigeItemsMod/assets/80988984/fcabe679-5697-468c-9b69-2f46dc2f0133) | Multiplicity Band | Chance to trigger any band effect or any combination of band effects. Corrupts all bands. |

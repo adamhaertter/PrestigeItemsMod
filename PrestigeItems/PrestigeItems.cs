@@ -27,7 +27,7 @@ namespace PrestigeItems
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "BlueB";
         public const string PluginName = "PrestigeItemsMod";
-        public const string PluginVersion = "0.0.1";
+        public const string PluginVersion = "0.2.0";
 
         public static PluginInfo SavedInfo { get; private set;}
 
