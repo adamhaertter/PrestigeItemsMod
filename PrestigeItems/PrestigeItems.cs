@@ -17,6 +17,7 @@ namespace PrestigeItems
     // it's just to tell BepInEx to initialize R2API before this plugin so it's safe to use R2API.
     [BepInDependency(ItemAPI.PluginGUID)]
     [BepInDependency(LanguageAPI.PluginGUID)]
+    [BepInDependency(RecalculateStatsAPI.PluginGUID)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
 
     public class PrestigeItems : BaseUnityPlugin
@@ -49,6 +50,7 @@ namespace PrestigeItems
             //Boilerplate.Init(); // Disabled for now
             PrestigeFungus.Init();
             PrestigeBauble.Init();
+            PrestigeSymbiote.Init();
         }
 
         // The Update() method is run on every frame of the game.
