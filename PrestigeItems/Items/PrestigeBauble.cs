@@ -93,14 +93,12 @@ namespace PrestigeItems.Items
                     // Get item count to see if item in inventory, and for chance calculation
                     var itemCount = attackerBody.inventory.GetItemCount(itemDef.itemIndex);
 
-                    // Calculate roll        
-                    if (itemCount > 0 && RoR2.Util.CheckRoll((10f + (5f * (itemCount - 1))) * damageInfo.procCoefficient, attackerBody.master))
-                    {
-                        var rollPercentage = ((basePercent + (stackPercent * (itemCount - 1))) * damageInfo.procCoefficient);
-                        //Log.Debug($"PrestigeBauble hits");
+                    var rollPercentage = ((basePercent + (stackPercent * (itemCount - 1))) * damageInfo.procCoefficient);
 
-                        //Log.Debug($"Victim has {victimBody.GetBuffCount(progressionList[0].buffIndex)} stacks of Red Slow, {victimBody.GetBuffCount(progressionList[5].buffIndex)} stacks of Lunar Root");
-                        
+                    // Calculate roll        
+                    if (itemCount > 0 && RoR2.Util.CheckRoll(rollPercentage, attackerBody.master))
+                    {
+                                                
                         // If we are at max, apply more lunar root
                         if (victimBody.HasBuff(RoR2Content.Buffs.LunarSecondaryRoot)) 
                         {
@@ -114,30 +112,18 @@ namespace PrestigeItems.Items
                                 }
                             }
 
-                            //Log.Debug($"PrestigeBauble applying another stack of Lunar Root to the victim.");
                             victimBody.AddTimedBuff(RoR2Content.Buffs.LunarSecondaryRoot, 3f + currentRootDuration);
                             
-                            // Gather info about how much lunar root is had.
-                            /*
-                            timedBuffs = victimBody.timedBuffs;
-                            foreach(CharacterBody.TimedBuff buff in timedBuffs)
-                            {
-                                if(buff.buffIndex == RoR2Content.Buffs.LunarSecondaryRoot.buffIndex)
-                                {
-                                    Log.Debug($"Time on LunarRoot before {currentRootDuration}, after {buff.timer}");
-                                }
-                            }
-                            */
                             return;
                         }
 
+                        // If we are in the middle, upgrade the slow
                         for (int i = progressionList.Count-2; i >= 0; i--)
                         {
-                            // If we are in the middle, upgrade the slow
                             if (victimBody.HasBuff(progressionList[i]))
                             {
-                                Log.Debug($"PrestigeBauble upgrading {progressionList[i]} into {progressionList[i+1]}");
                                 victimBody.ClearTimedBuffs(progressionList[i].buffIndex);
+
                                 if(i == progressionList.Count-2)
                                 {                              
                                     victimBody.AddTimedBuff(progressionList[i + 1], 3f);
@@ -151,9 +137,7 @@ namespace PrestigeItems.Items
 
                         // If they have no slows, give them baby slow
                         victimBody.AddTimedBuff(progressionList[0], 5f);
-                        Log.Debug($"PrestigeBauble found no slows, applying {progressionList[0]}");
                     }
-
                 }
             };
         }
@@ -168,7 +152,7 @@ namespace PrestigeItems.Items
             LanguageAPI.Add(itemId + "_PICKUP", "Gain the ability to inflict and promote slowness debuffs on enemies until they are rooted.");
             LanguageAPI.Add(itemId + "_DESCRIPTION", $"<style=cIsUtility>{basePercent}%</style> <style=cStack>(+{stackPercent}% per stack)</style> chance to <style=cWorldEvent>promote</style> the <style=cIsUtility>current slowing debuff</style> on the enemy to the <style=cIsUtility>next tier of slowness</style>. Inflicts a <style=cIsUtility>low-level slow</style> to enemies who have <style=cIsUtility>no slowness debuffs</style>.");
 
-            string lore = "Lore Text"; //TODO Write your lore text here to be shown in the logbook.
+            string lore = "\"Wait a minute, that just sounds like Tentabauble with extra steps!\" \n\n(That's what you sound like I bet.)"; //TODO Write your lore text here to be shown in the logbook.
             LanguageAPI.Add(itemId + "_LORE", lore);
         }
 
