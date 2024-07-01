@@ -17,6 +17,7 @@ namespace PrestigeItems
     // it's just to tell BepInEx to initialize R2API before this plugin so it's safe to use R2API.
     [BepInDependency(ItemAPI.PluginGUID)]
     [BepInDependency(LanguageAPI.PluginGUID)]
+    [BepInDependency(RecalculateStatsAPI.PluginGUID)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
 
     public class PrestigeItems : BaseUnityPlugin
@@ -48,6 +49,7 @@ namespace PrestigeItems
             PrestigeBleed.Init();
             //Boilerplate.Init(); // Disabled for now
             PrestigeFungus.Init();
+            PrestigeSymbiote.Init();
         }
 
         // The Update() method is run on every frame of the game.
@@ -74,7 +76,7 @@ namespace PrestigeItems
                 // And then drop our defined item in front of the player.
 
                 Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBleed.itemDef.itemIndex), transform.position, transform.forward * 20f);
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeSymbiote.itemDef.itemIndex), transform.position, transform.forward * 20f);
             }
             */
         }
