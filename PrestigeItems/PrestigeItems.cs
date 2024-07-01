@@ -3,9 +3,6 @@ using PrestigeItems.Items;
 using R2API;
 using RoR2;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using System.Reflection;
-using TMPro;
 using PrestigeItems.Util;
 
 [assembly: HG.Reflection.SearchableAttribute.OptIn] // THIS IS NEEDED FOR BaseItemBodyBehavior TO WORK!!!
@@ -46,8 +43,8 @@ namespace PrestigeItems
 
             // Initialize item classes
             DevCube.Init();
-            PrestigeBleed.Init();
             //Boilerplate.Init(); // Disabled for now
+            PrestigeBleed.Init();
             PrestigeFungus.Init();
             PrestigeBauble.Init();
             PrestigeSymbiote.Init();
@@ -56,30 +53,28 @@ namespace PrestigeItems
         // The Update() method is run on every frame of the game.
         private void Update()
         {
-            /* // These are debug controls. I'm disabling them during gameplay.
-            // This if statement checks if the player has currently pressed F2.
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                // Get the player body to use a position:
-                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-
-                // And then drop our defined item in front of the player.
-
-                Log.Info($"Player pressed F2. Spawning our custom item 1 at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(DevCube.itemDef.itemIndex), transform.position, transform.forward * 20f);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F3))
-            {
-                // Get the player body to use a position:
-                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-
-                // And then drop our defined item in front of the player.
-
-                Log.Info($"Player pressed F3. Spawning our custom item 2 at coordinates {transform.position}");
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(PrestigeBauble.itemDef.itemIndex), transform.position, transform.forward * 20f);
-            }
+            /*
+            // These are debug controls. I'm disabling them during normal gameplay, but keeping so I can test.
+            debugSpawnItem(Boilerplate.myItemDef, KeyCode.F1);
+            debugSpawnItem(DevCube.itemDef, KeyCode.F2);
+            debugSpawnItem(PrestigeBleed.itemDef, KeyCode.F3);
+            debugSpawnItem(PrestigeFungus.itemDef, KeyCode.F4);
+            debugSpawnItem(PrestigeBauble.itemDef, KeyCode.F5);
+            debugSpawnItem(PrestigeSymbiote.itemDef, KeyCode.F6);
             */
+        }
+
+        private void debugSpawnItem(ItemDef itemDef, KeyCode keyTrigger)
+        {
+            if (Input.GetKeyDown(keyTrigger))
+            {
+                // Get the player body to use a position:
+                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+
+                // And then drop our defined item in front of the player.
+                Log.Info($"Player pressed {keyTrigger}. Spawning our custom item {itemDef.name} at coordinates {transform.position}");
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(itemDef.itemIndex), transform.position, transform.forward * 20f);
+            }
         }
     }
 }
